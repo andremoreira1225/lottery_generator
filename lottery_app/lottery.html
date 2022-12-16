@@ -7,6 +7,76 @@
     <title>Document</title>
 </head>
 <body>
+
+        <div class="">
+            <div class="numbers">
+                <label for="">add numbers</label>
+                <input type="number" id="numberForKey" >
+                <button onclick="receiveData()">Add</button>
+            </div>
+            <br>
+            <!-- <div class="totalKeys">
+                <label for="">How many keys?</label>
+                <input type="number" id="howManyKeys" >
+            </div> -->
+            <br>
+        </div>
+
+     
+        <button onClick="generateRandom()" type="submit">Generate</button>
+        
+
+<script>
+    let numbersArray = [0,1,25,53,89,73,92,30];
+    let input = 0;
+    let view = 0;
+    let numberOfKeys = 0;
+
+
     
+    function receiveData(input){
+        input = document.getElementById('numberForKey');
+
+        //console.log(input);
+
+        numbersArray.push(input.value);
+
+        console.log(numbersArray);
+
+        return numbersArray;
+    }
+       
+    console.log(numbersArray);
+    function generateRandom() {
+        //console.log(numbersArray);
+        numberOfKeys = document.getElementById('howManyKeys');
+
+        let newArray = [];
+        let j = "";
+        let k = "";
+        let count = 0;
+
+        for(let i = numbersArray.length -1; i > 0; i--){
+            j = Math.floor(Math.random() * i);
+            k = numbersArray[i];
+            numbersArray[i] = numbersArray[j]
+            numbersArray[j] = k
+
+        }
+
+        numberOfPermutations = permutations(numbersArray.length);
+
+            for(let x = 0; x < 5; x++){
+                    newArray.push(numbersArray[x]);
+                    count++;
+            }
+            console.log("tou aqui: " + count);   
+        console.log(newArray);
+    }
+
+    function permutations(length){
+        
+    }
+</script>
 </body>
 </html>
