@@ -15,10 +15,10 @@
                 <button onclick="receiveData()">Add</button>
             </div>
             <br>
-            <!-- <div class="totalKeys">
+            <div class="totalKeys">
                 <label for="">How many keys?</label>
                 <input type="number" id="howManyKeys" >
-            </div> -->
+            </div>
             <br>
         </div>
 
@@ -50,8 +50,10 @@
     function generateRandom() {
         //console.log(numbersArray);
         numberOfKeys = document.getElementById('howManyKeys');
+        numberOfKeys = numberOfKeys.value;
 
         let newArray = [];
+        let newArrayOfArrays = [];
         let j = "";
         let k = "";
         let count = 0;
@@ -63,19 +65,33 @@
             numbersArray[j] = k
 
         }
+        
+        //numberOfPermutations = permutations(numbersArray.length);
+        for(let r = 0; r < numberOfKeys; r++){
+            newArrayOfArrays.push(newArray);
+        }   
+            //console.log("tou aqui: " + count);   
+        console.log(newArrayOfArrays);
 
-        numberOfPermutations = permutations(numbersArray.length);
+        for(let x = 0; x < 5; x++){
+            numbers = permutations(5)
+            newArray.push(numbers);
+        }
 
-            for(let x = 0; x < 5; x++){
-                    newArray.push(numbersArray[x]);
-                    count++;
-            }
-            console.log("tou aqui: " + count);   
-        console.log(newArray);
+        console.log(newArray)
     }
 
+    //ta uma confusao aqui...
+
     function permutations(length){
-        
+        for(let i = length -1; i > 0; i--){
+            j = Math.floor(Math.random() * i);
+            k = numbersArray[i];
+            numbersArray[i] = numbersArray[j]
+            numbersArray[j] = k
+        }
+        console.log("numbers" + numbersArray)
+        return numbersArray;
     }
 </script>
 </body>
