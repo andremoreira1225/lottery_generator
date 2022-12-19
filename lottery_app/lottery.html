@@ -15,6 +15,16 @@
                 <button onclick="receiveData()">Add</button>
             </div>
             <br>
+            <div class="teste-inputs">
+
+            </div>
+            <br>
+            <div class="radio">
+                <label for="type-game">Totoloto</label>
+                <input type="radio" value="totoloto" name="type-game" id="">
+                <label for="type-game">Euromilhões</label>
+                <input type="radio" value="euromilhoes" name="type-game" id="">
+            </div>
             <div class="totalKeys">
                 <label for="">How many keys?</label>
                 <input type="number" id="howManyKeys" >
@@ -31,17 +41,29 @@
     let input = 0;
     let view = 0;
     let numberOfKeys = 0;
+    var numbersInKey = 0;
+    var text = null;
+    var newInputs = null;
+    let inputs = document.getElementsByClassName('teste-inputs');
+    for(let u = 1; u <= 50; u++){
+        newInputs = document.createElement('button')
+        text = document.createTextNode(u)
+        newInputs.appendChild(text)
+        inputs[0].appendChild(newInputs)
+    }
 
-
+    
     
     function receiveData(input){
         input = document.getElementById('numberForKey');
+        
 
+        console.log("tou aqui");
         //console.log(input);
 
         numbersArray.push(input.value);
 
-        console.log(numbersArray);
+        //console.log(numbersArray);
 
         return numbersArray;
     }
@@ -49,49 +71,53 @@
     console.log(numbersArray);
     function generateRandom() {
         //console.log(numbersArray);
+    
         numberOfKeys = document.getElementById('howManyKeys');
         numberOfKeys = numberOfKeys.value;
-
-        let newArray = [];
         let newArrayOfArrays = [];
         let j = "";
         let k = "";
-        let count = 0;
+        let count = 0;        
+        //numberOfPermutations = permutations(numbersArray.length);
+        for(let r = 0; r < numberOfKeys; r++){
+            numbersArray = permutations(numbersArray)
+            //console.log(typeof(numbersInKey))
+            newArray = createArrayOfArrays(numbersArray)
+            newArrayOfArrays.push(newArray);
+        }         
 
+        console.log(newArrayOfArrays)
+    }
+
+    //ta uma confusao aqui...
+
+    function createArrayOfArrays(numbersArray){
+        let newArray = [];
+
+        let radio = document.querySelector('input[name="type-game"]:checked').value
+        if(radio == "totoloto"){
+            numbersInKey = 6;
+            
+        }else{
+            numbersInKey = 7;
+        }
+
+        console.log(typeof(numbersInKey))
+        for(let x = 0; x < numbersInKey; x++){
+            newArray.push(numbersArray[x]);
+        }
+        return newArray;
+    }
+
+
+    function permutations(numbersArray){
         for(let i = numbersArray.length -1; i > 0; i--){
             j = Math.floor(Math.random() * i);
             k = numbersArray[i];
             numbersArray[i] = numbersArray[j]
             numbersArray[j] = k
-
         }
-        
-        //numberOfPermutations = permutations(numbersArray.length);
-        for(let r = 0; r < numberOfKeys; r++){
-            newArrayOfArrays.push(newArray);
-        }   
-            //console.log("tou aqui: " + count);   
-        console.log(newArrayOfArrays);
-
-        for(let x = 0; x < 5; x++){
-            numbers = permutations(5)
-            newArray.push(numbers);
-        }
-
-        console.log(newArray)
-    }
-
-    //ta uma confusao aqui...
-
-    function permutations(length){
-        for(let i = length -1; i > 0; i--){
-            j = Math.floor(Math.random() * i);
-            k = numbersArray[i];
-            numbersArray[i] = numbersArray[j]
-            numbersArray[j] = k
-        }
-        console.log("numbers" + numbersArray)
-        return numbersArray;
+        return numbersArray
     }
 </script>
 </body>
