@@ -6,16 +6,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
 </head>
+<style>
+    .checked {
+        color: red;
+    }
+</style>
 <body>
 
         <div class="">
             <div class="numbers">
-                <label for="">add numbers</label>
-                <input type="number" id="numberForKey" >
-                <button onclick="receiveData()">Add</button>
-            </div>
-            <br>
-            <div class="teste-inputs">
 
             </div>
             <br>
@@ -37,40 +36,59 @@
         
 
 <script>
-    let numbersArray = [0,1,25,53,89,73,92,30];
+    let numbersArray = [];
     let input = 0;
     let view = 0;
     let numberOfKeys = 0;
     var numbersInKey = 0;
     var text = null;
     var newInputs = null;
-    let inputs = document.getElementsByClassName('teste-inputs');
+
+    let inputs = document.getElementsByClassName('numbers');
     for(let u = 1; u <= 50; u++){
         newInputs = document.createElement('button')
+        newInputs.setAttribute("Name", "button-number")
+        newInputs.setAttribute("Value", u)
         text = document.createTextNode(u)
         newInputs.appendChild(text)
         inputs[0].appendChild(newInputs)
     }
 
     
-    
-    function receiveData(input){
-        input = document.getElementById('numberForKey');
-        
 
-        console.log("tou aqui");
-        //console.log(input);
+    let counter = 0;
+    let activebtn = 0;
+    const btns = document.getElementsByName("button-number")
+    console.log(btns)
+    btns.forEach((btns) => {
+        btns.addEventListener("click", (e) => {
+            console.log("tou aqui")
+            if((counter >= 0 && activebtn !== e.currentTarget)){
+                console.log(counter)
+                activebtn = e.currentTarget;
+                e.target.classList.add("checked")
+                numbersArray.push(e.currentTarget.value);
+                counter++;
+                console.log(counter)
+            } else if((activebtn !== null && activebtn === e.currentTarget)){
+                e.currentTarget.classList.remove("checked")
+                removeValue = e.currentTarget.value;
+                removeItem(numbersArray, removeValue)
+            }
+        })
+    })
 
-        numbersArray.push(input.value);
-
-        //console.log(numbersArray);
-
-        return numbersArray;
+    function removeItem(numbersArray, value){
+        let index = numbersArray.indexOf(value)
+        if(index > 0){
+            numbersArray.splice(index, 1);
+        }
+        return numbersArray
     }
        
     console.log(numbersArray);
     function generateRandom() {
-        //console.log(numbersArray);
+        console.log(numbersArray);
     
         numberOfKeys = document.getElementById('howManyKeys');
         numberOfKeys = numberOfKeys.value;
