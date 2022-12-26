@@ -13,7 +13,7 @@
 </style>
 <body>
 
-        <div class="">
+        <div class="input">
             <div class="numbers">
 
             </div>
@@ -31,9 +31,11 @@
             <br>
         </div>
 
-     
         <button onClick="generateRandom()" type="submit">Generate</button>
-        
+        <div class="print-keys">
+            
+        </div>
+     
 
 <script>
     let numbersArray = [];
@@ -105,6 +107,7 @@
         }         
 
         console.log(newArrayOfArrays)
+        showKeys(newArrayOfArrays)
     }
 
     //ta uma confusao aqui...
@@ -136,6 +139,37 @@
             numbersArray[j] = k
         }
         return numbersArray
+    }
+
+    // falta me fazer isto....
+    function compareKeys(a, b){
+        const equalsIgnoreOrder = (a, b) => {
+        if (a.length !== b.length) return false;
+        const uniqueValues = new Set([...a, ...b]);
+        for (const v of uniqueValues) {
+            const aCount = a.filter(e => e === v).length;
+            const bCount = b.filter(e => e === v).length;
+            if (aCount !== bCount) return false;
+        }
+        return true;
+}
+    }
+
+    function showKeys(newArrayOfArrays){
+        let outputArea = document.getElementsByClassName('print-keys');
+        console.log("hello")
+        newList = document.createElement('ul')
+        for(let y = 0; y <= newArrayOfArrays.length-1; y++){
+            newOutput = document.createElement('li')
+            newOutput.setAttribute("Name", "label-keys")
+            newOutput.setAttribute("Value", newArrayOfArrays[y])
+            text = document.createTextNode( newArrayOfArrays[y])
+            newOutput.appendChild(text)
+            newList.appendChild(newOutput)
+            outputArea[0].appendChild(newList)
+        }
+
+        console.log("so para ver " + newArrayOfArrays)
     }
 </script>
 </body>
