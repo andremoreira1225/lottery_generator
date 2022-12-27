@@ -4,37 +4,62 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js" integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN" crossorigin="anonymous"></script>
     <title>Document</title>
 </head>
 <style>
-    .checked {
-        color: red;
+    body{
+        background: #a8c0ff;  /* fallback for old browsers */
+        background: -webkit-linear-gradient(to right, #3f2b96, #a8c0ff);  /* Chrome 10-25, Safari 5.1-6 */
+        background: linear-gradient(to right, #3f2b96, #a8c0ff); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+    }
+    .input{
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        width: 1000px;
+        height: 800px;
+    }
+   
+    .unchecked{
+        width: 50px;
+        height: 30px;
+        border: solid rgba(158, 158, 158, 0.712) ;
+        border-width: 0.2px;
+        border-radius: 10px;
+    }
+    .checked{
+        width: 50px;
+        height: 30px;
+        background-color: red;
     }
 </style>
 <body>
+        
+            <div class="input">
+                <div class="col-sm-4 ">
 
-        <div class="input">
-            <div class="numbers">
+                </div>
+                <br>
+                <div class="radio">
+                    <label for="type-game">Totoloto</label>
+                    <input type="radio" value="totoloto" name="type-game" id="">
+                    <label for="type-game">Euromilhões</label>
+                    <input type="radio" value="euromilhoes" name="type-game" id="">
+                </div>
+                <div class="totalKeys">
+                    <label for="">How many keys?</label>
+                    <input type="number" id="howManyKeys" >
+                </div>
+                <br>
+            </div>
 
+            <button onClick="generateRandom()" class="btn btn-primary btn-lg" type="submit">Generate</button>
+            <div class="print-keys">
+                
             </div>
-            <br>
-            <div class="radio">
-                <label for="type-game">Totoloto</label>
-                <input type="radio" value="totoloto" name="type-game" id="">
-                <label for="type-game">Euromilhões</label>
-                <input type="radio" value="euromilhoes" name="type-game" id="">
-            </div>
-            <div class="totalKeys">
-                <label for="">How many keys?</label>
-                <input type="number" id="howManyKeys" >
-            </div>
-            <br>
-        </div>
-
-        <button onClick="generateRandom()" type="submit">Generate</button>
-        <div class="print-keys">
-            
-        </div>
      
 
 <script>
@@ -46,7 +71,7 @@
     var text = null;
     var newInputs = null;
 
-    let inputs = document.getElementsByClassName('numbers');
+    let inputs = document.getElementsByClassName('col-sm-4 ');
     for(let u = 1; u <= 50; u++){
         newInputs = document.createElement('button')
         newInputs.setAttribute("Name", "button-number")
@@ -63,6 +88,7 @@
     const btns = document.getElementsByName("button-number")
     console.log(btns)
     btns.forEach((btns) => {
+        btns.classList.add("unchecked")
         btns.addEventListener("click", (e) => {
             console.log("tou aqui")
             if((counter >= 0 && activebtn !== e.currentTarget)){
@@ -90,7 +116,7 @@
        
     console.log(numbersArray);
     function generateRandom() {
-        console.log(numbersArray);
+        //console.log(numbersArray);
     
         numberOfKeys = document.getElementById('howManyKeys');
         numberOfKeys = numberOfKeys.value;
@@ -103,7 +129,16 @@
             numbersArray = permutations(numbersArray)
             //console.log(typeof(numbersInKey))
             newArray = createArrayOfArrays(numbersArray)
-            newArrayOfArrays.push(newArray);
+            //console.log(newArray)
+            if(r == 0){
+                newArrayOfArrays.push(newArray);
+                console.log(equalsElementsArray(newArray))
+            }else if(r >= 1){
+                newArrayOfArrays.push(newArray);
+                console.log(equalsElementsArray(newArray))
+                console.log(equalsIgnoreOrderArrays(newArrayOfArrays[r-1], newArrayOfArrays[r]))
+            }
+            
         }         
 
         console.log(newArrayOfArrays)
@@ -123,9 +158,9 @@
             numbersInKey = 7;
         }
 
-        console.log(typeof(numbersInKey))
+        //console.log(typeof(numbersInKey))
         for(let x = 0; x < numbersInKey; x++){
-            newArray.push(numbersArray[x]);
+            newArray.push(numbersArray[x]);  
         }
         return newArray;
     }
@@ -142,9 +177,24 @@
     }
 
     // falta me fazer isto....
-    function compareKeys(a, b){
-        const equalsIgnoreOrder = (a, b) => {
+
+    const equalsElementsArray = (array) => {
+        for(let i = 0; i <= array.length; i++){
+            let blockNumber = array[i]
+            for(let y = 0; y <= array.length; y++){
+                if(i === y) {
+
+                }else{
+                    equals = array[i] === array[y]
+                }
+            }
+        }
+        return false
+    }
+
+    const equalsIgnoreOrderArrays = (a, b) => {
         if (a.length !== b.length) return false;
+        //console.log(a + b)
         const uniqueValues = new Set([...a, ...b]);
         for (const v of uniqueValues) {
             const aCount = a.filter(e => e === v).length;
@@ -152,8 +202,8 @@
             if (aCount !== bCount) return false;
         }
         return true;
-}
-    }
+        }
+    
 
     function showKeys(newArrayOfArrays){
         let outputArea = document.getElementsByClassName('print-keys');
