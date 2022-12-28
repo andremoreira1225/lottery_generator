@@ -9,57 +9,275 @@
     <title>Document</title>
 </head>
 <style>
-    body{
-        background: #a8c0ff;  /* fallback for old browsers */
-        background: -webkit-linear-gradient(to right, #3f2b96, #a8c0ff);  /* Chrome 10-25, Safari 5.1-6 */
-        background: linear-gradient(to right, #3f2b96, #a8c0ff); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+body {
+    background: -moz-linear-gradient(45deg, #02e1ba 0%, #26c9f2 29%, #d911f2 66%, #ffa079 100%);
+    background: -webkit-linear-gradient(45deg, #02e1ba 0%,#26c9f2 29%,#d911f2 66%,#ffa079 100%);
+    background: linear-gradient(45deg, #02e1ba 0%,#26c9f2 29%,#d911f2 66%,#ffa079 100%);
+    background-size: 400% 400%;
+    -webkit-animation: Gradient 15s ease infinite;
+  -moz-animation: Gradient 15s ease infinite;
+  animation: Gradient 15s ease infinite;
+  /*min-height: calc(100vh - 2rem);*/
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  justify-content: space-evenly;
+  overflow: hidden;
+  position: relative; 
+}
+
+body::before, 
+body::after {
+  content: "";
+  width: 70vmax;
+  height: 70vmax;
+  position: absolute;
+  background: rgba(255, 255, 255, 0.07);
+  left: -20vmin;
+  top: -20vmin;
+  animation: morph 15s linear infinite alternate, spin 20s linear infinite;
+  z-index: 1;
+  will-change: border-radius, transform;
+  transform-origin: 55% 55%;
+  pointer-events: none; 
+}
+  
+body::after {
+    width: 70vmin;
+    height: 70vmin;
+    left: auto;
+    right: -10vmin;
+    top: auto;
+    bottom: 0;
+    animation: morph 10s linear infinite alternate, spin 26s linear infinite reverse;
+    transform-origin: 20% 20%; 
+}
+
+@-webkit-keyframes Gradient {
+  0% {
+    background-position: 0 50%
+  }
+  50% {
+    background-position: 100% 50%
+  }
+  100% {
+    background-position: 0 50%
+  }
+}
+
+@-moz-keyframes Gradient {
+  0% {
+    background-position: 0 50%
+  }
+  50% {
+    background-position: 100% 50%
+  }
+  100% {
+    background-position: 0 50%
+  }
+}
+
+@keyframes Gradient {
+  0% {
+    background-position: 0 50%
+  }
+  50% {
+    background-position: 100% 50%
+  }
+  100% {
+    background-position: 0 50%
+  }
+}
+
+@keyframes morph {
+  0% {
+    border-radius: 40% 60% 60% 40% / 70% 30% 70% 30%; }
+  100% {
+    border-radius: 40% 60%; } 
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(1turn); 
+  } 
+}
+  .st0{display:none;}
+  .st1{display:inline;}
+  .st2{opacity:0.29;}
+  .st3{fill:#FFFFFF;}
+  .st4{clip-path:url(#SVGID_2_);fill:#FFFFFF;}
+  .st5{clip-path:url(#SVGID_4_);}
+  .st6{clip-path:url(#SVGID_6_);}
+  .st7{clip-path:url(#SVGID_8_);}
+  .st8{clip-path:url(#SVGID_10_);}
+  .st9{fill:none;}
+  .st10{clip-path:url(#SVGID_12_);}
+  .st11{opacity:0.7;}
+  .st12{clip-path:url(#SVGID_14_);}
+  .st13{opacity:0.2;}
+  .st14{clip-path:url(#SVGID_16_);}
+  .st15{opacity:0.3;fill:#FFFFFF;enable-background:new    ;}
+
+    .background{
+        background-color: rgba(21, 21, 21, 0.259)
     }
-    .input{
-        position: absolute;
+    .every{
+        margin: 20px;
+    }
+
+    .row{
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        margin: 10px;
+    }
+
+    .left{
+        width: 95%;
+        height: 700px;
+        background-color: rgba(255, 255, 255, 0.1);
+        border: black;
+        border-width: 1px;
+        border-radius: 25px;
+        
+    }
+
+    .right{
+        width: 95%;
+        height: 1000px;
+        background-color: rgba(255, 255, 255, 0.1);
+        border: black;
+        border-width: 3px;
+        border-radius: 25px;
+        margin-left: 5%;
+        
+    }
+    .center{
+        position: aleftbsolute;
         top: 50%;
         left: 50%;
         transform: translate(-50%, -50%);
         width: 1000px;
         height: 800px;
     }
-   
+
+   .input{
+    position: absolute;
+    top: 40%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+   }
+
+   .inputs{
+    margin: 20px;
+    display: grid;
+    grid-template-columns: repeat(10,0.5fr);
+   }
+
     .unchecked{
         width: 50px;
-        height: 30px;
+        height: 50px;
         border: solid rgba(158, 158, 158, 0.712) ;
         border-width: 0.2px;
-        border-radius: 10px;
+        border-radius: 100px;
+        margin: 5px;
     }
     .checked{
         width: 50px;
-        height: 30px;
+        height: 50px;
         background-color: red;
+        border-radius: 100px;
+        margin: 5px;
+    }
+
+    .radio{
+        position: relative;
+        margin: 20px;
+        align-content: center;
+        display: flex;
+        justify-content: center;
+        flex-wrap: wrap;
+        column-gap: 20px;
+    }
+
+    label[name="type-game"]{
+        font-size: larger;
+    }
+
+
+    .totalKeys{
+        position: relative;
+        margin: 20px;
+        margin-top: 50px;
+        font-size: larger;
+    }
+
+    input[id="howManyKeys"]{
+        border-radius: 20px;
+        border: none;
+        width: 300px;
+        padding: 7px;
+        margin-left: 20px;
+    }
+
+    button[class="btn btn-primary btn-lg"]{
+        position: relative;
+        left: 37%;
+        top: 50px;
+        height: 75px;
+        width: 200px;
+        background-color: rgb(54, 52, 52);
+    }
+
+    .output-label{
+        border-radius: 25px;
+        margin: 10px;
+        padding: 10px;
+
+        border-color: black;
+        border: 1px black;
+    }
+
+    .icon-balls{
+        width: 50px;
+        height: 50px;
+        border: solid rgba(158, 158, 158, 0.712) ;
+        border-width: 0.2px;
+        border-radius: 100px;
+        margin: 5px;
     }
 </style>
 <body>
-        
-            <div class="input">
-                <div class="col-sm-4 ">
 
-                </div>
-                <br>
-                <div class="radio">
-                    <label for="type-game">Totoloto</label>
-                    <input type="radio" value="totoloto" name="type-game" id="">
-                    <label for="type-game">Euromilhões</label>
-                    <input type="radio" value="euromilhoes" name="type-game" id="">
-                </div>
-                <div class="totalKeys">
-                    <label for="">How many keys?</label>
-                    <input type="number" id="howManyKeys" >
-                </div>
-                <br>
+    <div class="background">
+    <div class="every">
+        <div class="row">
+        <div class="left">
+            <div class="inputs">
+
             </div>
-
+            <div class="radio">
+                <input class="form-check-input" type="radio" value="totoloto"  name="type-game" id="flexCheckChecked">
+                <label name="type-game" for="type-game">Totoloto</label>
+                <input type="radio" class="form-check-input" value="euromilhoes" name="type-game" id="flexCheckChecked">
+                <label name="type-game" for="type-game">Euromilhões</label>
+            </div>
+            <div class="totalKeys">
+                <label for="">Quantas Chaves: </label>
+                <input type="number" id="howManyKeys" >
+            </div>
             <button onClick="generateRandom()" class="btn btn-primary btn-lg" type="submit">Generate</button>
-            <div class="print-keys">
-                
+        </div>
+        <div class="right">
+            <div class="output-label">
+                <div class="print-keys">
+                    
+                </div>
             </div>
+        </div>
+    </div>
+    </div>
+</div>
+            
      
 
 <script>
@@ -71,7 +289,7 @@
     var text = null;
     var newInputs = null;
 
-    let inputs = document.getElementsByClassName('col-sm-4 ');
+    let inputs = document.getElementsByClassName('inputs');
     for(let u = 1; u <= 50; u++){
         newInputs = document.createElement('button')
         newInputs.setAttribute("Name", "button-number")
@@ -207,15 +425,22 @@
 
     function showKeys(newArrayOfArrays){
         let outputArea = document.getElementsByClassName('print-keys');
-        console.log("hello")
-        newList = document.createElement('ul')
+        let newList = document.createElement('ul')
+        let newItem = null;
+        let newIcon = null;
         for(let y = 0; y <= newArrayOfArrays.length-1; y++){
-            newOutput = document.createElement('li')
-            newOutput.setAttribute("Name", "label-keys")
-            newOutput.setAttribute("Value", newArrayOfArrays[y])
-            text = document.createTextNode( newArrayOfArrays[y])
-            newOutput.appendChild(text)
-            newList.appendChild(newOutput)
+            actualArray = newArrayOfArrays[y]
+            newItem = document.createElement('li')
+            for(let i = 0; i <= actualArray.length; i++){
+                newIcon = document.createElement('label')
+                newIcon.setAttribute("class", "icon-balls")
+                newIcon.setAttribute("value", actualArray[i])
+                text = document.createTextNode(actualArray[i])
+                newIcon.appendChild(text)
+                newItem.appendChild(newIcon)
+                newList.appendChild(newItem)
+            }
+            
             outputArea[0].appendChild(newList)
         }
 
