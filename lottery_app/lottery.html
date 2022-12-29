@@ -487,7 +487,9 @@ body::after {
             newDiv = document.createElement('div')
             newDiv.setAttribute("class", "container")
             for(let i = 0; i <= actualArray.length-1; i++){
-                if(i < actualArray.length-1){
+
+                if(actualArray.length == 6){
+                    if(i < actualArray.length-1){
                     text = document.createElement('label')
                     text.setAttribute("class", "text-ball")
                     text.setAttribute("value", actualArray[i])
@@ -499,18 +501,33 @@ body::after {
                 if(i == 5){
                         starText = document.createElement('label')
                         starText.setAttribute("class", "text-star")
-                        starText.setAttribute("value", actualArray[5])
+                        starText.setAttribute("value", actualArray[i])
                         console.log("so uma vez")
                         starText.innerHTML = actualArray[i]
                         newDiv.appendChild(text)    
                         newDiv.appendChild(starText)  
                 }
-                // }else if(i === actualArray.length){
-                //         starText = document.createElement('label')
-                //         starText.setAttribute("class", "text-star")
-                //         starText.setAttribute("value", actualArray[6])
-                // }
-                
+                }else if(actualArray.length == 7){
+                    if(i < actualArray.length-2){
+                    text = document.createElement('label')
+                    text.setAttribute("class", "text-ball")
+                    text.setAttribute("value", actualArray[i])
+                    text.innerHTML = actualArray[i]
+                    newDiv.appendChild(text)    
+                    console.log("tou a passar aqui" + i)
+                }
+                if(i >= 5){
+                        starText = document.createElement('label')
+                        starText.setAttribute("class", "text-star")
+                        starText.setAttribute("value", actualArray[i])
+                        console.log("so uma vez" + i)
+                        starText.innerHTML = actualArray[i]
+                        
+                        //newDiv.appendChild(text)  
+                        newDiv.appendChild(starText)    
+                        
+                }
+                }       
                
                      
                     
