@@ -189,7 +189,7 @@ body::after {
     .checked{
         width: 50px;
         height: 50px;
-        
+        border: none;
         background: url("ball.png");
         background-size: cover;
         opacity: 1;
@@ -292,6 +292,14 @@ body::after {
         background-size: cover;
         display: grid;
     }
+
+    .numberOfNumbers{
+        margin-left: 20px;
+        margin-top: 20px;
+        font-size: x-large;
+    }
+
+    
 </style>
 <body>
 
@@ -299,6 +307,7 @@ body::after {
     <div class="every">
         <div class="row">
         <div class="left">
+            <label class="numberOfNumbers"></label>
             <div class="inputs">
 
             </div>
@@ -312,7 +321,7 @@ body::after {
                 <label for="">Quantas Chaves: </label>
                 <input type="number" id="howManyKeys" >
             </div>
-            <button onClick="generateRandom()" class="btn btn-primary btn-lg" type="submit">Generate</button>
+            <button onClick="generateRandom()" style="border-radius: 100px; border: none;" class="btn btn-primary btn-lg" type="submit">Generate</button>
         </div>
         <div class="right">
             <div class="output-label">
@@ -336,7 +345,10 @@ body::after {
     var text = null;
     var newInputs = null;
 
+   
+
     let inputs = document.getElementsByClassName('inputs');
+    
     for(let u = 1; u <= 50; u++){
         newInputs = document.createElement('button')
         newInputs.setAttribute("Name", "button-number")
@@ -347,26 +359,43 @@ body::after {
     }
 
     
-
+    
     let counter = 0;
     let activebtn = 0;
     const btns = document.getElementsByName("button-number")
+    test1 = document.querySelector('label[class="numberOfNumbers"]')
     console.log(btns)
     btns.forEach((btns) => {
         btns.classList.add("unchecked")
         btns.addEventListener("click", (e) => {
             console.log("tou aqui")
-            if((counter >= 0 && activebtn !== e.currentTarget)){
-                console.log(counter)
-                activebtn = e.currentTarget;
-                e.target.classList.add("checked")
-                numbersArray.push(e.currentTarget.value);
-                counter++;
-                console.log(counter)
-            } else if((activebtn !== null && activebtn === e.currentTarget)){
-                e.currentTarget.classList.remove("checked")
-                removeValue = e.currentTarget.value;
-                removeItem(numbersArray, removeValue)
+            ;
+            
+            console.log("o target está aqui" + e.currentTarget.value + " e o activebtn é " + activebtn.value)
+            
+            if((counter >= 0 && e.currentTarget.classList.value == "unchecked")){
+                if(e.target.classList.value == "unchecked"){
+                    activebtn = e.currentTarget;
+                    e.target.classList.replace("unchecked", "checked")
+                    numbersArray.push(e.currentTarget.value);
+                    counter++;
+                }
+                console.log("o counter é " + counter + " e o activebtn " + activebtn.value)
+                test1.textContent = "Selecionaste " + counter + " numeros";
+            } else if((e.currentTarget !== null)){
+                activebtn = e.currentTarget
+                console.log("o target está aqui2" + e.currentTarget.value + " e o activebtn é " + activebtn.value)
+                if(e.target.classList.value == "checked"){
+                    e.currentTarget.classList.replace("checked", "unchecked")
+                    removeValue = e.currentTarget.value;
+                    counter--;
+                    test1.textContent = "Selecionaste " + counter + " numeros";
+                    removeItem(numbersArray, removeValue)
+                    console.log("Aqui o current.target é " + e.currentTarget.value)
+                }
+                
+                
+                
             }
         })
     })
@@ -382,18 +411,29 @@ body::after {
     console.log(numbersArray);
     function generateRandom() {
         //console.log(numbersArray);
-    
         numberOfKeys = document.getElementById('howManyKeys');
         numberOfKeys = numberOfKeys.value;
         let newArrayOfArrays = [];
         let j = "";
         let k = "";
         let count = 0;        
+        let stars = [];
+        let radio = document.querySelector('input[name="type-game"]:checked').value
+        if(radio == "totoloto"){
+            stars = Math.floor(Math.random() * (13 - 1) + 1)
+        }else{
+            for(let o = 0; o <= 2-1; o++){
+                star= Math.floor(Math.random() * (13 - 1) + 1)
+                stars.push(star);
+            }
+        }
+
         //numberOfPermutations = permutations(numbersArray.length);
         for(let r = 0; r < numberOfKeys; r++){
             numbersArray = permutations(numbersArray)
             //console.log(typeof(numbersInKey))
-            newArray = createArrayOfArrays(numbersArray)
+            newArray = createArrayOfArrays(numbersArray, radio)
+            console.log(newArray = newArray.concat(stars))
             //console.log(newArray)
             if(r == 0){
                 newArrayOfArrays.push(newArray);
@@ -405,28 +445,31 @@ body::after {
             }
             
         }         
-
+        console.log(numbersArray)
         console.log(newArrayOfArrays)
         showKeys(newArrayOfArrays)
     }
 
     //ta uma confusao aqui...
 
-    function createArrayOfArrays(numbersArray){
+    function createArrayOfArrays(numbersArray, radio){
         let newArray = [];
 
-        let radio = document.querySelector('input[name="type-game"]:checked').value
+        //let radio = document.querySelector('input[name="type-game"]:checked').value
         if(radio == "totoloto"){
-            numbersInKey = 6;
+            numbersInKey = 5;
             
         }else{
-            numbersInKey = 7;
+            numbersInKey = 5;
         }
 
         //console.log(typeof(numbersInKey))
         for(let x = 0; x < numbersInKey; x++){
             newArray.push(numbersArray[x]);  
         }
+
+       
+        
         return newArray;
     }
 
