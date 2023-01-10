@@ -121,7 +121,7 @@ body::after {
     .background{
         background-color: rgba(21, 21, 21, 0.259);
         width: 100%;
-        height: 1000px;
+        height: 1200px;
         
     }
     .every{
@@ -227,10 +227,17 @@ body::after {
         margin-left: 20px;
     }
 
-    button[class="btn btn-primary btn-lg"]{
+    .buttons{
         position: relative;
-        left: 37%;
+        left: 0%;
         top: 50px;
+        align-content: center;
+        display: flex;
+        justify-content: center;
+        flex-wrap: wrap;
+    }
+
+    button[class="btn btn-primary btn-lg"]{
         height: 75px;
         width: 200px;
         background-color: rgb(54, 52, 52);
@@ -321,11 +328,15 @@ body::after {
                 <label for="">Quantas Chaves: </label>
                 <input type="number" id="howManyKeys" >
             </div>
-            <button onClick="generateRandom()" style="border-radius: 100px; border: none;" class="btn btn-primary btn-lg" type="submit">Generate</button>
+            <div class="buttons">
+                <button onClick="generateRandom()" style="border-radius: 100px; border: none;" class="btn btn-primary btn-lg" type="submit">Generate</button>
+                <button onClick="generateRandom()" style="border-radius: 100px; border: none;" class="btn btn-primary btn-lg" type="submit">Reset</button>
+            </div>
         </div>
         <div class="right">
             <div class="output-label">
-                <div class="print-keys">
+                <button onClick="cleanKeys()" style="border-radius: 100px; border: none;" class="btn btn-primary btn-lg" type="submit">Clean</button>
+                <div class="print-keys" id="print-keys">
                     
                 </div>
             </div>
@@ -413,6 +424,10 @@ body::after {
         //console.log(numbersArray);
         numberOfKeys = document.getElementById('howManyKeys');
         numberOfKeys = numberOfKeys.value;
+        if(numbersArray.length <= 8){
+            alert("You cannot continue because has risk repeating numbers")
+            
+        }
         let newArrayOfArrays = [];
         let j = "";
         let k = "";
@@ -467,9 +482,6 @@ body::after {
         for(let x = 0; x < numbersInKey; x++){
             newArray.push(numbersArray[x]);  
         }
-
-       
-        
         return newArray;
     }
 
@@ -512,10 +524,16 @@ body::after {
         return true;
         }
     
-
+    function cleanKeys(){
+        let sai = document.getElementsByClassName("print-keys")
+        sai.remove();
+        
+    }   
+    
     function showKeys(newArrayOfArrays){
         let rightArea = document.getElementsByClassName('right')
         let outputArea = document.getElementsByClassName('print-keys');
+        let outputLabel = document.getElementsByClassName('output-label')
         let newList = document.createElement('ul')
         let newItem = null;
         let newDiv = null;
@@ -584,6 +602,7 @@ body::after {
             console.log(typeof(outputArea))
             
         }
+
         console.log("so para ver " + newArrayOfArrays)
     }
 </script>
